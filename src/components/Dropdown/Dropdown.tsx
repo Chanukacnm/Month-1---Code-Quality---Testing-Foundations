@@ -21,9 +21,11 @@ export function Dropdown({
   label,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [internalValue, setInternalValue] = useState<string | undefined>(undefined);
+  const currentValue = value !== undefined ? value : internalValue;
   const ref = useRef<HTMLDivElement>(null);
 
-  const selectedItem = items.find((item) => item.value === value);
+  const selectedItem = items.find((item) => item.value === currentValue);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -37,6 +39,7 @@ export function Dropdown({
   }, []);
 
   const handleSelect = (itemValue: string) => {
+    setInternalValue(itemValue);
     onChange?.(itemValue);
     setIsOpen(false);
   };
@@ -70,10 +73,10 @@ export function Dropdown({
           {items.map((item) => (
             <li
               key={item.value}
-              className={`dropdown-item ${item.value === value ? "dropdown-item-selected" : ""}`}
+              className={`dropdown-item ${item.value === currentValue ? "dropdown-item-selected" : ""}`}
               onClick={() => handleSelect(item.value)}
               role="option"
-              aria-selected={item.value === value}
+              aria-selected={item.value === currentValue}
             >
               {item.label}
             </li>

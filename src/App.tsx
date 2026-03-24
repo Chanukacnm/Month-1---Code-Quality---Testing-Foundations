@@ -73,7 +73,7 @@ export function App() {
               type="email"
               placeholder="you@example.com"
               required
-              error={inputValue === "" ? "Name is required" : undefined}
+              error={inputValue === "" ? "Email is required" : undefined}
             />
           </div>
         </section>

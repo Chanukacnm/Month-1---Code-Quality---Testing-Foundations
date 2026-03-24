@@ -6,7 +6,15 @@ export default {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(t|j)sx?$': ['@swc/jest'],
+    '^.+\\.(t|j)sx?$': ['@swc/jest', {
+      jsc: {
+        transform: {
+          react: {
+            runtime: 'automatic'
+          }
+        }
+      }
+    }],
   },
   collectCoverage: true,
   collectCoverageFrom: [
